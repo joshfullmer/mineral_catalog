@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% load static %}
+{% load minerals_extras %}
+
+{% block content %}
+<div class="grid-100 mineral__container">
+    <div>
+        {% if prev_next|get_item:'previous' %}
+            <a class="minerals__anchor mineral__detail_header" href="{% url 'minerals:mineral_detail' prev_next|get_item:'previous'|get_item:'id' %}"><< {{ prev_next|get_item:'previous'|get_item:'name' }}</a>
+        {% else %}
+            <span class="minerals__anchor mineral__detail_header"><< No previous minerals</span>
+        {% endif %}
+        <h1 class="mineral__name mineral__detail_header">{{ mineral.name }}</h1>
+        {% if prev_next|get_item:'next' %}
+            <a class="minerals__anchor mineral__detail_header" href="{% url 'minerals:mineral_detail' prev_next|get_item:'next'|get_item:'id' %}">{{ prev_next|get_item:'next'|get_item:'name' }} >></a>
+        {% else %}
+            <span class="minerals__anchor mineral__detail_header">No next minerals >></span>
+        {% endif %}
+    </div>
+    <div class="mineral__image-bg">
+        <img class="mineral__image" src="{% static 'img' %}/{{ mineral.name }}.jpg">
+        <p class="mineral__caption">{{ mineral.image_caption }}</p>
+    </div>
+    <div class="mineral__table-container">
+        <table class="mineral__table">
+            {% for key, value in mineral.items %}
+                {% if value and key in names %}
+                <tr>
+                    <td class="mineral__category">{{ key|title|rem_underscore }}</td>
+                    <td>{{ value|safe }}</td>
+                </tr>
+                {% endif %}
+            {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock %}
