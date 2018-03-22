@@ -7,11 +7,14 @@ from minerals.models import Mineral
 
 register = template.Library()
 
-
+# Not used in favor of handling random ID generation in the view, rather than
+# through the template
+"""
 @register.simple_tag
 def get_random_id():
     ids = Mineral.objects.all().values_list('id', flat=True)
     return random.choice(ids)
+"""
 
 
 @register.filter
