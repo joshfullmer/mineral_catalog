@@ -4,6 +4,10 @@ from django.db import models
 
 
 class Mineral(models.Model):
+
+    # All of the fields are CharFields, because there is no user interaction,
+    # so data validation doesn't need to happen
+    # If user input were required, the field types would be more intentional
     name = models.CharField(max_length=255)
     image_filename = models.CharField(max_length=255)
     image_caption = models.CharField(max_length=255)

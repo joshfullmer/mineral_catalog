@@ -11,21 +11,28 @@ class MineralTestCase(TestCase):
         self.c = Client()
 
     def test_database_creation(self):
+        """Tests that the database is created, and that all minerals have been
+        successfully added"""
         minerals = Mineral.objects.all()
         self.assertEqual(len(minerals), 874)
         first_mineral = minerals.first()
         self.assertEqual(first_mineral.id, 1)
 
     def test_welcome_page(self):
+        """Tests that the welcome page successfully loads"""
         resp = self.c.get('/')
         self.assertEqual(resp.status_code, 200)
 
     def test_list_return(self):
+        """Tests that the number of minerals on the list page is the full
+        list of minerals in the database"""
         resp = self.c.get('/minerals/')
         self.assertEqual(len(resp.context.get('minerals')), 874)
         self.assertEqual(resp.status_code, 200)
 
     def test_detail_return(self):
+        """Tests a single mineral page view, that data exists, and that the
+        name is accurate"""
         resp = self.c.get('/minerals/1/')
         self.assertIsNotNone(resp.context.get('mineral'))
         self.assertEqual(resp.status_code, 200)

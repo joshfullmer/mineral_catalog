@@ -19,9 +19,11 @@ def get_random_id():
 
 @register.filter
 def get_item(dictionary, key):
+    """Adds the dictionary.get() function as a filter for the templates"""
     return dictionary.get(key)
 
 
 @register.filter
 def rem_underscore(string):
+    """Removes underscores from a string and replaces with a space"""
     return string.replace('_', ' ')

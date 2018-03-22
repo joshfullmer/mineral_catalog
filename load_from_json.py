@@ -15,8 +15,11 @@ def load_json_to_db():
     # Then we can finally import the model from the app
     from minerals.models import Mineral
 
+    # Load minerals json as dictionary
     minerals = json.load(open('./minerals/fixtures/minerals.json'))
     for mineral in minerals:
+        # Adds mineral to database, adding an empty string if the key isn't
+        # in the particular mineral dictionary
         Mineral(
             name=mineral.get('name', ''),
             image_filename=mineral.get('image filename', ''),
